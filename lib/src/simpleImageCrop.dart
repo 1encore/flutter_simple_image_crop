@@ -4,9 +4,7 @@ class ImageOptions {
   final int width;
   final int height;
 
-  ImageOptions({required this.width, required this.height})
-      : assert(width != null),
-        assert(height != null);
+  ImageOptions({required this.width, required this.height});
 
   @override
   int get hashCode => hashValues(width, height);
@@ -35,7 +33,6 @@ class ImageCrop {
   }
 
   static Future<ImageOptions> getImageOptions({required File file}) async {
-    assert(file != null);
     final result =
         await _channel.invokeMethod('getImageOptions', {'path': file.path});
     return ImageOptions(
@@ -49,8 +46,6 @@ class ImageCrop {
     required Rect area,
     double? scale,
   }) {
-    assert(file != null);
-    assert(area != null);
     return _channel.invokeMethod('cropImage', {
       'path': file.path,
       'left': area.left,
@@ -67,7 +62,6 @@ class ImageCrop {
     int? preferredWidth,
     int? preferredHeight,
   }) async {
-    assert(file != null);
     assert(() {
       if (preferredSize == null &&
           (preferredWidth == null || preferredHeight == null)) {

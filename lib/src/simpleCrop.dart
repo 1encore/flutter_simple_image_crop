@@ -30,9 +30,7 @@ class ImgCrop extends StatefulWidget {
       this.chipRatio = 1.0,
       this.chipShape = ChipShape.circle,
       this.handleSize = 10.0})
-      : assert(image != null),
-        assert(maximumScale != null),
-        assert(handleSize != null && handleSize >= 0.0),
+      : assert(handleSize >= 0.0),
         super(key: key);
 
   ImgCrop.file(File file,
@@ -45,7 +43,6 @@ class ImgCrop extends StatefulWidget {
       this.chipShape = ChipShape.circle,
       this.handleSize = 10.0})
       : image = FileImage(file, scale: scale),
-        assert(maximumScale != null),
         super(key: key);
 
   ImgCrop.asset(String assetName,
@@ -59,7 +56,6 @@ class ImgCrop extends StatefulWidget {
       this.chipShape = ChipShape.circle,
       this.handleSize = 10.0})
       : image = AssetImage(assetName, bundle: bundle, package: package),
-        assert(maximumScale != null),
         super(key: key);
 
   @override
@@ -256,7 +252,8 @@ class ImgCropState extends State<ImgCrop> with TickerProviderStateMixin, Drag {
         );
 
         // NOTE: 计算图片显示比值，最大1.0为全部显示
-        final viewWidth = _boundaries.width / (_image!.width * _scale! * _ratio!);
+        final viewWidth =
+            _boundaries.width / (_image!.width * _scale! * _ratio!);
         final viewHeight =
             _boundaries.height / (_image!.height * _scale! * _ratio!);
         _area = _calculateDefaultArea(
@@ -311,7 +308,8 @@ class ImgCropState extends State<ImgCrop> with TickerProviderStateMixin, Drag {
 
   double get _minimumScale {
     final scaleX = _boundaries.width * _area!.width / (_image!.width * _ratio!);
-    final scaleY = _boundaries.height * _area!.height / (_image!.height * _ratio!);
+    final scaleY =
+        _boundaries.height * _area!.height / (_image!.height * _ratio!);
     return min(_maximumScale, max(scaleX, scaleY));
   }
 
