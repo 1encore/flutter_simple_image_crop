@@ -118,7 +118,7 @@ class _SimpleCropRouteState extends State<SimpleCropRoute> {
 
   @override
   Widget build(BuildContext context) {
-    final Map args = ModalRoute.of(context).settings.arguments;
+    final Map args = ModalRoute.of(context)!.settings.arguments as Map;
     return Scaffold(
         appBar: AppBar(
           elevation: 0,
@@ -148,7 +148,7 @@ class _SimpleCropRouteState extends State<SimpleCropRoute> {
           onPressed: () async {
             final crop = cropKey.currentState;
             final croppedFile =
-                await crop.cropCompleted(args['image'], preferredSize: 1000);
+                await crop!.cropCompleted(args['image'], preferredSize: 1000);
             showImage(context, croppedFile);
           },
           tooltip: 'Increment',
